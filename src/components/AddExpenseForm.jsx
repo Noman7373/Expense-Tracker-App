@@ -1,10 +1,19 @@
-import { useRef } from "react";
+import { PlusCircleIcon } from "@heroicons/react/24/solid";
+import { useEffect, useRef } from "react";
 import { useFetcher } from "react-router-dom";
 
 const AddExpenseForm = ({ budgets }) => {
   const fetcher = useFetcher();
+  const isSubmitting = fetcher.state === "submitting";
   const formRef = useRef();
-  const focusRef = useRef();
+  const inputFocusRef = useRef();
+
+  useEffect(() => {
+    if (!isSubmitting) {
+      formRef.current.reset();
+      inputFocusRef.current.focus();
+    }
+  }, [isSubmitting]);
   return (
     <div className="form-wrapper">
       <h2 className="h3">
@@ -23,7 +32,7 @@ const AddExpenseForm = ({ budgets }) => {
               name="newExpense"
               id="newExpense"
               placeholder="e.g. , Coffee"
-              ref={focusRef}
+              ref={inputFocusRef}
               required
             />
           </div>
@@ -40,7 +49,7 @@ const AddExpenseForm = ({ budgets }) => {
             />
           </div>
         </div>
-        <div className="grid-xs" hidden={budgets.length === 0}>
+        <div className="grid-xs" hidden={budgets.length === 1}>
           <label htmlFor="newExpenseBudget">Budget Category</label>
           <select name="newExpenseBudget" id="newExpenseBudget" required>
             {budgets
@@ -54,6 +63,21 @@ const AddExpenseForm = ({ budgets }) => {
               })}
           </select>
         </div>
+        <input type="hidden" name="_action" value="createExpense" />
+        <button type="submit" className="btn btn--dart" disabled={isSubmitting}>
+          {
+            isSubmitting ? (
+              <span>Submitting budget...</span>
+            ) : (
+              <>
+                <span>Add Expense</span>
+                <PlusCircleIcon width={20} />
+              </>
+            )
+
+            // <CurrencyDollarIcon width={20} />
+          }
+        </button>
       </fetcher.Form>
     </div>
   );

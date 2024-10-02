@@ -1,10 +1,11 @@
 import React from "react";
-import { createBudget, fetchData, waait } from "../Helper";
+import { createBudget, createExpense, fetchData, waait } from "../Helper";
 import { useLoaderData } from "react-router-dom";
 import { toast } from "react-toastify";
 import Intro from "./Intro";
 import AddBudgetsForms from "./AddBudgetsForms";
 import AddExpenseForm from "./AddExpenseForm";
+import BudgetItem from "./BudgetItem";
 // Loader
 export const dashboardLoader = () => {
   const userName = fetchData("userName");
@@ -41,6 +42,21 @@ export async function dashboardActions({ request }) {
       throw new Error("There was a problem creating your budget");
     }
   }
+
+  if (_action === "createExpense") {
+    // create Expense
+    createExpense({
+      name: value.newExpense,
+      amount: value.newExpenseAmount,
+      budgetId: value.newBudgetAmount,
+    });
+    console.log("ammount is", amount);
+    try {
+      return toast.success(`Expense ${value.newExpense} created!`);
+    } catch (error) {
+      throw new Error("There was a problem creating your expense");
+    }
+  }
 }
 const Dashboard = () => {
   const { userName, budgets } = useLoaderData();
@@ -57,6 +73,12 @@ const Dashboard = () => {
                 <div className="flex-lg">
                   <AddBudgetsForms />
                   <AddExpenseForm budgets={budgets} />
+                </div>
+                <h2>Existing Budgets</h2>
+                <div className="budgets">
+                  {budgets.map((budgets) => {
+                    return <BudgetItem key={budgets.id} budgets={budgets} />;
+                  })}
                 </div>
               </div>
             ) : (
