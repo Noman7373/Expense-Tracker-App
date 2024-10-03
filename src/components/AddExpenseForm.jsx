@@ -7,6 +7,7 @@ const AddExpenseForm = ({ budgets }) => {
   const isSubmitting = fetcher.state === "submitting";
   const formRef = useRef();
   const inputFocusRef = useRef();
+  // console.log("AddExpenseForm", budgets[0]?.amount);
 
   useEffect(() => {
     if (!isSubmitting) {
@@ -40,11 +41,11 @@ const AddExpenseForm = ({ budgets }) => {
             <label htmlFor="newExpenseAmount">Amount</label>
             <input
               type="number"
-              inputMode="decimal"
-              step="0.01"
               id="newExpenseAmount"
               name="newExpenseAmount"
+              step="0.01"
               placeholder="3.50$"
+              inputMode="decimal"
               required
             />
           </div>

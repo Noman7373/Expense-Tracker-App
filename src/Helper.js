@@ -63,12 +63,17 @@ export const formatCurrency = (value) => {
 
 export const totalBudgetCalculation = (budgetId) => {
   const expenses = fetchData("expenses") ?? [];
+
   const budgetSpent = expenses.reduce((acc, expense) => {
     if (expense.budgetId !== budgetId) return acc;
-    return (acc += expense.amount);
+
+    return acc += Number(expense.amount);
   }, 0);
+
   return budgetSpent;
 };
+
+// totalBudgetCalculation()
 
 // format percentage
 

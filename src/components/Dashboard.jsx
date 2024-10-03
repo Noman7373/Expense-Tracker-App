@@ -6,11 +6,13 @@ import Intro from "./Intro";
 import AddBudgetsForms from "./AddBudgetsForms";
 import AddExpenseForm from "./AddExpenseForm";
 import BudgetItem from "./BudgetItem";
+import Table from "./Table";
 // Loader
 export const dashboardLoader = () => {
   const userName = fetchData("userName");
   const budgets = fetchData("budgets");
-  return { userName, budgets };
+  const expenses = fetchData("expenses");
+  return { userName, budgets, expenses };
 };
 
 //  action
@@ -31,11 +33,13 @@ export async function dashboardActions({ request }) {
   }
 
   if (_action === "createBudget") {
+    const name = value.newBudget;
+    const amount = value.newBudgetAmount;
     createBudget({
-      name: value.newBudget,
-      amount: value.newBudgetAmount,
+      name: name,
+      amount: amount,
     });
-    console.log("ammount is", amount);
+    console.log("ammount is create budget", amount);
     try {
       return toast.success("Budget created!");
     } catch (error) {
@@ -45,12 +49,15 @@ export async function dashboardActions({ request }) {
 
   if (_action === "createExpense") {
     // create Expense
+    const name = value.newExpense;
+    const amount = value.newExpenseAmount;
+    const budgetIt = value.newBudgetAmount;
     createExpense({
-      name: value.newExpense,
-      amount: value.newExpenseAmount,
-      budgetId: value.newBudgetAmount,
+      name: name,
+      amount: amount,
+      budgetId: budgetIt,
     });
-    console.log("ammount is", amount);
+    console.log("ammount is create expense", amount);
     try {
       return toast.success(`Expense ${value.newExpense} created!`);
     } catch (error) {
@@ -59,7 +66,7 @@ export async function dashboardActions({ request }) {
   }
 }
 const Dashboard = () => {
-  const { userName, budgets } = useLoaderData();
+  const { userName, budgets, expenses } = useLoaderData();
   return (
     <>
       {userName ? (
@@ -77,9 +84,24 @@ const Dashboard = () => {
                 <h2>Existing Budgets</h2>
                 <div className="budgets">
                   {budgets.map((budgets) => {
+                    // console.log("Dashboard", budgets.amount);
+
                     return <BudgetItem key={budgets.id} budgets={budgets} />;
                   })}
                 </div>
+                {expenses && expenses.length > 0 && (
+                  
+                  <div className="grid-md">
+                    <h2>Recent Expenses</h2>
+                    <Table
+                      expenses={expenses.sort(
+                        (a, b) => b.createdAt - a.createdAt
+                      )}
+                      />
+                  </div>
+                )
+                }
+              
               </div>
             ) : (
               <div className="grid-sm">
