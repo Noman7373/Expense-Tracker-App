@@ -3,6 +3,7 @@ import Dashboard, {
   dashboardActions,
   dashboardLoader,
 } from "./components/Dashboard";
+import ExpensesPage, { expensesLoader } from "./components/ExpensesPage";
 import Error from "./components/Error";
 import Main from "./components/Main";
 import { logOutAction } from "./Logout";
@@ -28,6 +29,11 @@ function App() {
         {
           path: "logout",
           action: logOutAction,
+        },
+        {
+          path: "expense",
+          element: <ExpensesPage />,
+          loader : expensesLoader
         },
       ],
     },

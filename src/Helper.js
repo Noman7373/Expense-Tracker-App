@@ -13,9 +13,21 @@ export const fetchData = (key) => {
   return JSON.parse(localStorage.getItem(key));
 };
 //  delete user
-export const deleteUser = () => {
+export async function deleteUser() {
   return localStorage.clear();
-};
+}
+
+// export async function deleteUser() {
+//   deleteItem ({
+//     key : "userName"
+//   })
+//   deleteItem ({
+//     key : "userName"
+//   })
+//   deleteItem ({
+//     key : "userName"
+//   })
+// }
 
 // create Budget
 export const createBudget = ({ name, amount }) => {
@@ -67,7 +79,7 @@ export const totalBudgetCalculation = (budgetId) => {
   const budgetSpent = expenses.reduce((acc, expense) => {
     if (expense.budgetId !== budgetId) return acc;
 
-    return acc += Number(expense.amount);
+    return (acc += Number(expense.amount));
   }, 0);
 
   return budgetSpent;
@@ -82,4 +94,8 @@ export const formatPercentage = (value) => {
     style: "percent",
     minimumFractionDigits: 0, // or your desired currency code
   });
+};
+
+export const formatData = (epoch) => {
+  return new Date(epoch).toLocaleDateString();
 };
