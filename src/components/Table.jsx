@@ -1,6 +1,6 @@
 import Expenseitem from "./Expenseitem";
 
-const Table = ({ expenses }) => {
+const Table = ({ expenses  }) => {
   return (
     <div className="table">
       <table>

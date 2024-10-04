@@ -12,6 +12,16 @@ const generateRandomColor = () => {
 export const fetchData = (key) => {
   return JSON.parse(localStorage.getItem(key));
 };
+
+// Get all items from localstorage
+export const getAllMatchingItms = ({ budgets, key, value }) => {
+  const data = fetchData(budgets) ?? [];
+  console.log(data);
+
+  const filterData = data.filter((items) => items[key] === value);
+  console.log("filterData", filterData);
+  return filterData;
+};
 //  delete user
 export async function deleteUser() {
   return localStorage.clear();
