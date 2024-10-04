@@ -14,12 +14,11 @@ export const fetchData = (key) => {
 };
 
 // Get all items from localstorage
-export const getAllMatchingItms = ({ budgets, key, value }) => {
+export const getAllMatchingItms = ({ budgets, id, value }) => {
   const data = fetchData(budgets) ?? [];
-  console.log(data);
 
-  const filterData = data.filter((items) => items[key] === value);
-  console.log("filterData", filterData);
+  const filterData = data.filter((items) => items[id] === value);
+
   return filterData;
 };
 //  delete user
@@ -27,17 +26,16 @@ export async function deleteUser() {
   return localStorage.clear();
 }
 
-// export async function deleteUser() {
-//   deleteItem ({
-//     key : "userName"
-//   })
-//   deleteItem ({
-//     key : "userName"
-//   })
-//   deleteItem ({
-//     key : "userName"
-//   })
-// }
+// Delete expense
+
+export const deleteItem = ({ key, id }) => {
+  const existingData = fetchData(key);
+  if (id) {
+    const newData = existingData.filter((item) => item.id !== id);
+    return localStorage.setItem(key, JSON.stringify(newData));
+  }
+  return localStorage.removeItem(key);
+};
 
 // create Budget
 export const createBudget = ({ name, amount }) => {
