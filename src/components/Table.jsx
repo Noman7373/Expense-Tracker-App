@@ -1,6 +1,7 @@
 import Expenseitem from "./Expenseitem";
 
 const Table = ({ expenses, showBudget = true }) => {
+
   return (
     <div className="table">
       <table>

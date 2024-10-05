@@ -40,6 +40,23 @@ export const createExpense = ({ name, amount, budgetId }) => {
   );
 };
 
+// // Function to track similar expenses
+// export const trackSemilarExpenses = ({ name, amount, createdAt }) => {
+//   const getExpenseLS = fetchData("Expenses") ?? []; // Fetching expenses from local storage
+
+//   const filterData = getExpenseLS.find((expense) => expense.name === name);
+//   if (filterData) {
+//     filterData.amount += amount;
+//     createdAt = createdAt;
+//   } else {
+//     const newExpense = { name, amount, createdAt };
+//     getExpenseLS.push(newExpense);
+//   }
+
+//   localStorage.setItem("Expenses", JSON.stringify(getExpenseLS));
+//   return filterData || { name, amount, createdAt };
+// };
+
 // Get all items from localstorage
 export const getAllMatchingItms = ({ budgets, id, value }) => {
   const data = fetchData(budgets) ?? [];
@@ -97,7 +114,6 @@ const generateRandomColor = () => {
   const existBudgetLength = fetchData("budgets")?.length ?? 0;
   return `${existBudgetLength * 34} 65% 50%`;
 };
-
 
 export const waait = () =>
   new Promise((res) => setTimeout(res, Math.random() * 2000));
