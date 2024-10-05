@@ -18,6 +18,8 @@ import BudgetPage, {
   budgetLoader,
 } from "./components/BudgetPage";
 import { deleteBudget } from "./components/deleteBudget";
+import DeleteBudgetPage from "./components/DeleteBudgetPage";
+// import { deleteBudget } from "./components/deleteBudget";
 
 function App() {
   const router = createBrowserRouter([
@@ -42,19 +44,20 @@ function App() {
           errorElement: <Error />,
         },
         {
-          path: "budget/:id",
+          path: "budgets/:id",
           element: <BudgetPage />,
           loader: budgetLoader,
           errorElement: <Error />,
           action: budgetAction,
           // child already know every this about parent route
-          children : [
+          children: [
             {
-              path : "delete",
-              action : deleteBudget,
+              path: "delete",
+              element: <DeleteBudgetPage />,
+              action: deleteBudget,
               // created deleteBudget.js file to action
-            }
-          ]
+            },
+          ],
         },
         {
           path: "logout",

@@ -600,3 +600,7 @@ table a {
 .Toastify__toast-body {
   font-size: var(--fs-300);
 }
+
+td {
+  font-size: 1.1rem;
+}

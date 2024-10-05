@@ -21,7 +21,7 @@ const Expenseitem = ({ expense, showBudget }) => {
             style={{
               "--accent": budget.color,
             }}
-            to={`/budget/${budget.id}`}
+            to={`/budgets/${budget.id}`}
           >
             {budget.name}
           </Link>

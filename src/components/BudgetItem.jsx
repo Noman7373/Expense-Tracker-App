@@ -9,7 +9,6 @@ import { BanknotesIcon, TrashIcon } from "@heroicons/react/24/solid";
 const BudgetItem = ({ budgets, showDelete = false }) => {
   const { id, name, amount, color } = budgets;
   const spent = totalBudgetCalculation(id);
-  console.log("spent amount", spent);
 
   return (
     <div
@@ -52,7 +51,7 @@ const BudgetItem = ({ budgets, showDelete = false }) => {
         </div>
       ) : (
         <div className="flex-sm">
-          <Link to={`/budget/${id}`} className="btn">
+          <Link to={`/budgets/${id}/`} className="btn">
             <span>View Details</span>
             <BanknotesIcon width={20} />
           </Link>

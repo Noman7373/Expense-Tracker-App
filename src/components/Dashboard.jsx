@@ -38,6 +38,7 @@ export async function dashboardActions({ request }) {
     }
   }
 
+  // createBudget
   if (_action === "createBudget") {
     const name = value.newBudget;
     const amount = value.newBudgetAmount;
@@ -45,7 +46,6 @@ export async function dashboardActions({ request }) {
       name: name,
       amount: amount,
     });
-    console.log("ammount is create budget", amount);
     try {
       return toast.success("Budget created!");
     } catch (error) {
@@ -53,8 +53,8 @@ export async function dashboardActions({ request }) {
     }
   }
 
+  // create Expense
   if (_action === "createExpense") {
-    // create Expense
     const name = value.newExpense;
     const amount = value.newExpenseAmount;
     const budgetIt = value.newBudgetAmount;
@@ -70,9 +70,8 @@ export async function dashboardActions({ request }) {
     }
   }
 
+  // Delete Expense
   if (_action === "deleteExpense") {
-    // Delete Expense
-
     deleteItem({
       key: "Expenses",
       id: value.expenseId,
